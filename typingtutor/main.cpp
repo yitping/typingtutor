@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <ncurses.h>
+#include <time.h>
 
 int scrW, scrH;
 int buffersize;
@@ -21,6 +22,7 @@ void updateScreen()
 	int m, n;
 	m = scrH*4/10;
 	n = (scrW - buffersize)/2;
+	mvprintw(m-3, n, "Jiayu's Typing Tutor");
 	mvprintw(m-1, n, strMaster.c_str());
 	attron(A_BOLD);
 	mvprintw(m, n, strTyped.c_str());
@@ -42,6 +44,31 @@ void addChar(std::string &a, char c)
 	n_char += 1;
 }
 
+void delChar(std::string &a)
+{
+	a[n_char-1] = '\0';
+	n_char -= 1;
+	if (n_char < 0) n_char = 0;
+}
+
+std::string genStr(char *a, int n, int len)
+{
+	std::string s;
+	int i, j;
+	
+	for (i=0; i<len; i++)
+	{
+		do
+		{
+			j = rand() % n;
+		} while ((((i == 0) || (i == len-1)) && (a[j] == ' ')) ||
+						 ((i != 0) && (a[j] == ' ') && (s[i-1] == ' ')));
+		s.push_back(a[j]);
+	}
+	
+	return s;
+}
+
 int main(int argc, const char * argv[])
 {
 	int ch;
@@ -57,7 +84,9 @@ int main(int argc, const char * argv[])
 	buffersize  = scrW*3/4;
 	buffersize += (scrW % 2) ? ((buffersize % 2) + 1) : (buffersize % 2);
 
-	strMaster.assign("Hello, world!");
+	srand((unsigned int)time(NULL));
+	char a[] = {'a', 's', 'd', 'f', ' '};
+	strMaster = genStr(a, 5, buffersize);
 	strTyped.resize(buffersize, '\0');
 	
 	updateScreen();
@@ -67,9 +96,18 @@ int main(int argc, const char * argv[])
 	{
 		switch (ch)
 		{
+			case 8:
+			case 127:
+				delChar(strTyped);
+				break;
 			case 10:
 			case 13:
 				clearBuffer(strTyped);
+				break;
+			case KEY_UP:
+			case KEY_DOWN:
+			case KEY_RIGHT:
+			case KEY_LEFT:
 				break;
 			default:
 				addChar(strTyped, ch);
