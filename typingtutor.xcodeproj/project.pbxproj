@@ -27,6 +27,7 @@
 		C90C70631A9E0CA400F38272 /* typingtutor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = typingtutor; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90C70661A9E0CA400F38272 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C98503F91A9E11A300EE6370 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
+		C9D3EF5D1AA74FF700F4260F /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				C90C70661A9E0CA400F38272 /* main.cpp */,
+				C9D3EF5D1AA74FF700F4260F /* main.h */,
 			);
 			path = typingtutor;
 			sourceTree = "<group>";
